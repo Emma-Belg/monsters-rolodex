@@ -11,8 +11,6 @@ class App extends Component {
             monsters: [ ],
             searchField: ''
         };
-
-        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -21,7 +19,10 @@ class App extends Component {
             .then(users => this.setState({monsters: users}))
     }
 
-    handleChange(event) {
+    //can use arrow functions instead of explicitly binding (with bind(this)) because arrow functions have lexical scoping,
+    //therefore they automatically bind 'this' to the place where the arrow function is defined which is
+    //in this case, inside our App component.
+    handleChange = (event) => {
         this.setState({searchField: event.target.value});
     }
     render() {
