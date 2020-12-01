@@ -7,7 +7,8 @@ class App extends Component {
         //super() calls React.Component's constructor()
         super();
         this.state = {
-            monsters: [ ]
+            monsters: [ ],
+            searchField: ''
         };
     }
 
@@ -18,11 +19,18 @@ class App extends Component {
     }
 
     render() {
+        //destructuring, the below is the same as: const monsters =this.state.monsters; const searchField = this.state.searchField;
+        const {monsters, searchField} = this.state;
+        const filteredMonsters = monsters.filter(monster =>
+        monster.name.toLowerCase().includes(searchField.toLowerCase())
+        )
     return (
         <div className="App">
-            <CardList monsters={this.state.monsters}>
-
-            </CardList>
+            <input type='search'
+                   placeholder='search monsters'
+                   onChange={event => this.setState({searchField: event.target.value}
+                       )}/>
+            <CardList monsters={filteredMonsters} />
         </div>
     );
   }
